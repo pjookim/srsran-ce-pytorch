@@ -338,8 +338,13 @@ def fill_ch_est_cdm(
         idx_last = filled_list[-1]
         idx_first = filled_list[0]
 
-        estimated_all[idx_last:, il0] = estimated_all[idx_last, il0]
-        estimated_all[: idx_first + 1, il0] = estimated_all[idx_first, il0]
+        # estimated_all[idx_last:, il0] = estimated_all[idx_last, il0]
+        # estimated_all[: idx_first + 1, il0] = estimated_all[idx_first, il0]
+        val_last = estimated_all[idx_last, il0].clone()
+        estimated_all[idx_last:, il0] = val_last
+
+        val_first = estimated_all[idx_first, il0].clone()
+        estimated_all[: idx_first + 1, il0] = val_first
 
         # iLayerTrue = iLayer + (iCDM - 1) * 2;  (1-based)
         i_layer_true0 = (i_layer - 1) + (i_cdm - 1) * 2  # 0-based
